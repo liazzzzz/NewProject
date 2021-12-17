@@ -47,13 +47,13 @@
         </div>
     </div>
 </div>
-<div class="calculator">
-    <div class="calculator__text container"><section id="calculator">
-            <h2 class="calculator__title">Новая статья:</h2>
+<div class="article">
+    <div class="article__text container"><section id="article">
+            <h2 class="article__title">Новая статья:</h2>
             <#if article?has_content>
-                <a href="/articles/${article.id}"><h1 class="calculator_new">${article.title}</h1>
-                    <h2 class="calculator__subtitle">${article.text}</h2>
-                    <h3 class="calculator__subtitle">${"Опубликовано " + article.createdAt + " пользователем " +  article.user.firstname + " " + article.user.lastname}</h3></a>
+                <a href="/articles/${article.id}"><h1 class="article_new">${article.title}</h1>
+                    <h2 class="article__subtitle">${article.text}</h2>
+                    <h3 class="article__subtitle">${"Опубликовано " + article.createdAt + " пользователем " +  article.user.firstname + " " + article.user.lastname}</h3></a>
             <#else>
                 <p class="info__article" >На данный момент статья недоступна</p>
             </#if>
