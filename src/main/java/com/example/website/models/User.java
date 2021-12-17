@@ -37,7 +37,7 @@ public class User {
     private String hashPassword;
 
     @OneToMany(mappedBy = "user")
-    private Set<Article> posts;
+    private Set<Article> articles;
 
     @OneToMany(mappedBy = "user")
     private List<Comment> comments;
