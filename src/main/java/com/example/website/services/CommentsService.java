@@ -10,7 +10,8 @@ public interface CommentsService {
 
     void deleteCommentById(Long id);
 
-    List<Comment> findCommentByPost(Long id);
+    List<Comment> findCommentByArticle(Long id);
 
     Comment findCommentById(Long id);
+
 }

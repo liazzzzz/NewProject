@@ -30,19 +30,19 @@ public class ArticleController {
     private CommentsService commentsService;
 
     @GetMapping("/articles")
-    public String getAllPosts(Model model){
-        List<Article> posts = articlesService.findAll();
-        model.addAttribute("posts", posts);
+    public String getAllrticles(Model model){
+        List<Article> articles = articlesService.findAll();
+        model.addAttribute("articles", articles);
         return "articles";
     }
 
     @GetMapping("/articles/{id}")
-    public String getPost(@PathVariable("id") Long id, Model post_model, Model comment_model){
-        Optional<Article> optionalPost = articlesService.getById(id);
-        if (optionalPost.isPresent()) {
-            Article post = optionalPost.get();
-            post_model.addAttribute("post", post);
-            comment_model.addAttribute("comments", commentsService.findCommentByPost(id));
+    public String getArticle(@PathVariable("id") Long id, Model article_model, Model comment_model){
+        Optional<Article> optionalArticle = articlesService.getById(id);
+        if (optionalArticle.isPresent()) {
+            Article article = optionalArticle.get();
+            article_model.addAttribute("article", article);
+            comment_model.addAttribute("comments", commentsService.findCommentByArticle(id));
             return "article";
         } else {
             return "error";
@@ -50,67 +50,67 @@ public class ArticleController {
     }
 
     @GetMapping("/newArticle")
-    public String getNewPostPage() {
+    public String getNewArticlePage() {
         return "articleForm";
     }
 
     @PostMapping("/newArticle")
-    public String createPost(Article post){
+    public String createArticle(Article article){
         String auth = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<User> optionalUser = usersService.findUserByEmail(auth);
         if (optionalUser.isPresent()) {
-            post.setUser(optionalUser.get());
-            post.setCreatedAt(LocalDateTime.now());
-            articlesService.save(post);
-            return "redirect:/posts/" + post.getId();
+            article.setUser(optionalUser.get());
+            article.setCreatedAt(LocalDateTime.now());
+            articlesService.save(article);
+            return "redirect:/articles/" + article.getId();
         } else {
             return "error";
         }
     }
 
     @GetMapping("/editArticle/{id}")
-    public String editPost(@PathVariable Long id, Model model){
+    public String editArticle(@PathVariable Long id, Model model){
         String auth = SecurityContextHolder.getContext().getAuthentication().getName();
-        Optional<Article> optionalPost = articlesService.getById(id);
-        if (optionalPost.isPresent()) {
-            Article post = optionalPost.get();
-            if (auth.equals(post.getUser().getEmail())) {
-                model.addAttribute("post", post);
+        Optional<Article> optionalArticle = articlesService.getById(id);
+        if (optionalArticle.isPresent()) {
+            Article article = optionalArticle.get();
+            if (auth.equals(article.getUser().getEmail())) {
+                model.addAttribute("article", article);
                 return "editForm";
             } else {
-                System.err.println("Current User has no permissions to edit post by id: " + id);
+                System.err.println("Current User has no permissions to edit article by id: " + id);
                 return "error";
             }
         } else {
-            System.err.println("Could not find a post #" + id);
+            System.err.println("Could not find a article #" + id);
             return "error";
         }
     }
 
     @PostMapping ("/editArticle/{id}")
-    public String editPost(@PathVariable Long id, Article post){
-        Optional<Article> optionalPost = articlesService.getById(id);
-        if (optionalPost.isPresent()) {
-            Article editedPost = optionalPost.get();
-            editedPost.setTitle(post.getTitle());
-            editedPost.setText(post.getText());
-            editedPost.setCreatedAt(LocalDateTime.now());
-            articlesService.save(editedPost);
-            return "redirect:/posts/" + editedPost.getId();
+    public String editArticle(@PathVariable Long id, Article article){
+        Optional<Article> optionalArticle = articlesService.getById(id);
+        if (optionalArticle.isPresent()) {
+            Article editedArticle = optionalArticle.get();
+            editedArticle.setTitle(article.getTitle());
+            editedArticle.setText(article.getText());
+            editedArticle.setCreatedAt(LocalDateTime.now());
+            articlesService.save(editedArticle);
+            return "redirect:/articles/" + editedArticle.getId();
         } else {
             return "error";
         }
     }
 
     @GetMapping("/deleteArticle/{id}")
-    public String deletePost(@PathVariable Long id){
+    public String deleteArticle(@PathVariable Long id){
          String auth = SecurityContextHolder.getContext().getAuthentication().getName();
-         Optional<Article> optionalPost = articlesService.getById(id);
-         if (optionalPost.isPresent()){
-             Article post = optionalPost.get();
-             if (post.getUser().getEmail().equals(auth)){
+         Optional<Article> optionalArticle = articlesService.getById(id);
+         if (optionalArticle.isPresent()){
+             Article article = optionalArticle.get();
+             if (article.getUser().getEmail().equals(auth)){
                  articlesService.deleteById(id);
-                 return "redirect:/posts";
+                 return "redirect:/articles";
              } else {
                  return "error";
              }

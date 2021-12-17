@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "posts")
+@Table(name = "articles")
 public class Article {
 
     @Id
@@ -35,7 +35,7 @@ public class Article {
     private String text;
     private LocalDateTime createdAt;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "article")
     private List<Comment> comments;
 
     @ManyToOne
