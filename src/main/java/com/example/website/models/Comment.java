@@ -26,8 +26,8 @@ public class Comment {
     private LocalDateTime createdAt;
 
     @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn (name = "post_id", referencedColumnName = "id")
-    private Article post;
+    @JoinColumn (name = "article_id", referencedColumnName = "id")
+    private Article article;
 
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")

@@ -27,37 +27,19 @@ public class CommentController {
     @Autowired
     private ArticlesService articlesService;
 
-//    @GetMapping("/deleteComment/{id}")
-//    public String getComments(@PathVariable(name="id") Long id){
-//        Comment comment = commentsService.findCommentById(id);
-//        String auth = SecurityContextHolder.getContext().getAuthentication().getName();
-//        Optional<User> optionalUser = usersService.findUserByEmail(auth);
-//        if (optionalUser.isPresent()){
-//            User user = optionalUser.get();
-//            if (comment.getUser().equals(user)) {
-//                commentsService.deleteCommentById(id);
-//                return "redirect:/posts/";
-//            } else {
-//                return "error";
-//            }
-//        } else {
-//            return "error";
-//        }
-//    }
-
-    @PostMapping("/posts/{id}/comment")
+    @PostMapping("/articles/{id}/comment")
     public String createComment(@PathVariable Long id, Comment commentForm){
-        Article post = (articlesService.getById(id)).get();
+        Article article = (articlesService.getById(id)).get();
         String auth = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<User> optionalUser = usersService.findUserByEmail(auth);
         Comment newComment = new Comment();
         newComment.setText(commentForm.getText());
         if(optionalUser.isPresent()) {
             newComment.setUser(optionalUser.get());
-            newComment.setPost(post);
+            newComment.setArticle(article);
             newComment.setCreatedAt(LocalDateTime.now());
             commentsService.save(newComment);
-            return "redirect:/posts/{id}";
+            return "redirect:/articles/{id}";
         } else {
             return "error";
         }
