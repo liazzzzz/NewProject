@@ -21,8 +21,8 @@
             </div>
             <nav class="nav">
                 <nav class="nav__link">
-                    <a class="nav__link" href="/posts">Статьи</a>
-                    <a class="nav__link" href="/newPost">Написать статью</a>
+                    <a class="nav__link" href="/articles">Статьи</a>
+                    <a class="nav__link" href="/newArticle">Написать статью</a>
 <#--                    <a class="nav__link" href="/users">Пользователи</a>-->
                     <@security.authorize access="isAuthenticated()">
                        <a class="nav__link" href="/profile">Профиль</a>
@@ -43,42 +43,24 @@
         <div class="intro_inner">
             <h1 class="intro__title">Подготовка к ОГЭ и ЕГЭ</h1>
             <h2 class="intro__subtitle">На нашем сайте ты найдешь материалы для обучения по любому предметам. Читай, комментируй и пиши свои статьи.</h2>
-            <a class="btn btn--mod" href="/posts">Начать</a>
+            <a class="btn btn--mod" href="/articles">Начать</a>
         </div>
     </div>
 </div>
 <div class="calculator">
     <div class="calculator__text container"><section id="calculator">
             <h2 class="calculator__title">Новая статья:</h2>
-            <#if post?has_content>
-                <a href="/posts/${post.id}"><h1 class="calculator_new">${post.title}</h1>
-                    <h2 class="calculator__subtitle">${post.text}</h2>
-                    <h3 class="calculator__subtitle">${"Опубликовано " + post.createdAt + " пользователем " +  post.user.firstname + " " + post.user.lastname}</h3></a>
+            <#if article?has_content>
+                <a href="/articles/${article.id}"><h1 class="calculator_new">${article.title}</h1>
+                    <h2 class="calculator__subtitle">${article.text}</h2>
+                    <h3 class="calculator__subtitle">${"Опубликовано " + article.createdAt + " пользователем " +  article.user.firstname + " " + article.user.lastname}</h3></a>
             <#else>
                 <p class="info__article" >На данный момент статья недоступна</p>
             </#if>
-            <a href="/posts/${post.id}" class="btn btn--mod--calc"  href="/login">Читать</a>
+            <a href="/articles/${article.id}" class="btn btn--mod--calc"  href="/login">Читать</a>
         </section>
     </div>
 </div>
-<#--<div>-->
-<#--    <div class="container">-->
-<#--        <section id="article">-->
-<#--            <div class="articles">-->
-<#--                <div class="article__item">-->
-<#--                    <p class="info__article">Новая статья:</p>-->
-<#--                    <#if post?has_content>-->
-<#--                        <a href="/posts/${post.id}"><h1 class="article__title">${post.title}</h1>-->
-<#--                        <h2 class="article__text">${post.text}</h2>-->
-<#--                        <h3 class="article__data">${"Опубликовано " + post.createdAt + " пользователем " +  post.user.firstname + " " + post.user.lastname}</h3></a>-->
-<#--                    <#else>-->
-<#--                        <p class="info__article" >На данный момент статья недоступна</p>-->
-<#--                    </#if>-->
-<#--                </div>-->
-<#--            </div>-->
-<#--        </section>-->
-<#--    </div>-->
-<#--</div>-->
 </body>
 <footer class="footer">
     <div class="container"><section id="contacts">
