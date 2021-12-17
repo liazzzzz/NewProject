@@ -15,7 +15,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String index(Model model){
-        Article post = articlesService.findLatestPost();
+        Article post = articlesService.findLatestArticle();
         model.addAttribute("post", post);
         return "index";
     }

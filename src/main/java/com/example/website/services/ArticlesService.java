@@ -8,10 +8,10 @@ import java.util.Optional;
 public interface ArticlesService {
     List<Article> findAll();
     Optional<Article> getById(Long id);
-    Article save(Article post);
-    Article edit(Article post);
+    Article save(Article article);
+    Article edit(Article article);
     void deleteById(Long id);
 
-    Article findLatestPost();
+    Article findLatestArticle();
 
 }

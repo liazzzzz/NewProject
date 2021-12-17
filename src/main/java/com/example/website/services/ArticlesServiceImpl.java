@@ -23,20 +23,20 @@ public class ArticlesServiceImpl implements ArticlesService {
     public Optional<Article> getById(Long id) { return articlesRepository.findById(id); }
 
     @Override
-    public Article save(Article post) {
-        return articlesRepository.save(post);
+    public Article save(Article article) {
+        return articlesRepository.save(article);
     }
 
     @Override
-    public Article edit(Article post) {
-        return articlesRepository.save(post);
+    public Article edit(Article article) {
+        return articlesRepository.save(article);
     }
 
     @Override
     public void deleteById(Long id) { articlesRepository.deleteById(id); }
 
     @Override
-    public Article findLatestPost() {
+    public Article findLatestArticle() {
         return articlesRepository.findTopByOrderByCreatedAtDesc();
     }
 }
